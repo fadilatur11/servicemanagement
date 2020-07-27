@@ -14,9 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/**
+ * Route Grouping must be authenticated
+ */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::get('/ticket', 'TicketController@index')->name('listicket');
+    Route::get('/ticket/create', 'TicketController@create');
+    Route::post('ticket/actioncreate', 'TicketController@actioncreate');
+});
+

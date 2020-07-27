@@ -17,7 +17,7 @@
 </div>
 </div>
 </div>
-<script type="text/javascript" src="assets/scripts/main.js"></script>
+<script type="text/javascript" src="{{asset('assets/scripts/main.js')}}"></script>
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
