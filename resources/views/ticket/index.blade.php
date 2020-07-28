@@ -50,6 +50,7 @@
                                     <th>Project</th>
                                     <th>Category</th>
                                     <th>Request</th>
+                                    <th>Date</th>
                                     <th>From Department</th>
                                     <th>To Department</th>
                                     <th>Level</th>
@@ -65,6 +66,7 @@
                                     <td>{{ $dataTicket->project }}</td>
                                     <td>{{ $dataTicket->category->category }}</td>
                                     <td>{{ $dataTicket->user->name }}</td>
+                                    <td>{{ date('Y-m-d', strtotime($dataTicket->created_at)) }}</td>
                                     <td>{{ $dataTicket->fromDepartment->department }}</td>
                                     <td>{{ $dataTicket->toDepartment->department }}</td>
                                     <td>

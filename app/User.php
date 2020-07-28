@@ -39,6 +39,6 @@ class User extends Authenticatable
 
     public function tickets()
     {
-        return $this->hasMany('App\Ticket');
+        return $this->hasMany('App\Ticket')->select('id','project','category_id','ticket_no','department_id','user_id','send_to','pickup_by','level','subject','created_at',);
     }
 }

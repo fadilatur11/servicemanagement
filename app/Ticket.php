@@ -16,14 +16,10 @@ class Ticket extends Model
         /**
          * Scope a query to get data ticket
          */
-        public function scopeGetTicket($query, $id_user)
-        {
-            return $query->whereUserId($id_user);
-        }
-
+       
         public function scopeSelectName($query)
         {
-            return $query->select('id','department','project');
+            return $query->select('id','project','ticket_no','department_id','user_id','send_to','pickup_by','level','subject','created_at');
         }
 
         public function scopeSorting($query)
@@ -40,17 +36,17 @@ class Ticket extends Model
          */
         public function user()
         {
-            return $this->belongsTo('App\User');
+            return $this->belongsTo('App\User')->select('id','role','name');
         }
 
         public function category()
         {
-            return $this->belongsTo('App\Categories');
+            return $this->belongsTo('App\Categories')->select('id','category');
         }
 
         public function fromDepartment()
         {
-            return $this->belongsTo('App\Department','department_id','id');
+            return $this->belongsTo('App\Department','department_id','id')->select('id','department');
         }
 
         public function toDepartment()
@@ -65,7 +61,7 @@ class Ticket extends Model
 
         public function pickupBy()
         {
-            return $this->belongsTo('App\User','pickup_by','id');
+            return $this->belongsTo('App\User','pickup_by','id')->select('id','role','name');
         }
 
 }

@@ -22,13 +22,16 @@ class TicketController extends Controller
         $this->ticketRepository = $ticketRepository;
     }
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * index display data with role user
+     * if role admin, display all data, else get data by role
      */
     public function index()
     {
-        $ticket = User::find(Auth::user()->id)->tickets()->paginate(5);
+        if (Auth::user()->role == 1) {
+            $ticket = Ticket::Sorting()->paginate(5);
+        }else{
+            $ticket = User::find(Auth::user()->id)->tickets()->paginate(5);
+        }
         return view('ticket.index',['ticket' => $ticket]);
     }
 
