@@ -25,14 +25,24 @@ class TicketController extends Controller
      * index display data with role user
      * if role admin, display all data, else get data by role
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->role == 1) {
-            $ticket = Ticket::Sorting()->paginate(5);
+            $ticket = Ticket::Sorting()->FilterLevel($request->input('filter'))
+                ->FilterTicket($request->input('ticket'))
+                ->FilterDate($request->input('date'))
+                ->paginate(10);
         }else{
-            $ticket = User::find(Auth::user()->id)->tickets()->paginate(5);
+            $ticket = Ticket::Userid(Auth::user()->id)->FilterLevel($request->input('filter'))
+                ->FilterTicket($request->input('ticket'))
+                ->FilterDate($request->input('date'))
+                ->Sorting()->paginate(10);
         }
-        return view('ticket.index',['ticket' => $ticket]);
+        $level = Level::Active()->SelectName()->get()->toArray();
+        return view('ticket.index',[
+            'ticket' => $ticket,
+            'level' => $level
+            ]);
     }
 
     public function create()
@@ -50,12 +60,18 @@ class TicketController extends Controller
     {
         $post = $ticketService->create($request->only(['project','department_id','user_id','subject','category_id','send_to','level','url','description']));
         $name_file = date('YmdHis').'_'.$request->file('file')->getClientOriginalName();
-        $image = ['file' => $name_file]; 
-        $path = $request->file('file')->storeAs('savefile',$name_file);
+        $image = ['file' => $name_file];
+        $path = $request->file('file')->storeAs(date('Y'),$name_file);
         $data = array_merge($post,$image);
         $this->ticketRepository->create($data);
         return redirect()->route('listicket')->with('messages','Your data has been submitted !');
 
+    }
+
+    public function detail($ticket_no)
+    {
+        $ticket = Ticket::FilterTicket($ticket_no)->first();
+        return view('ticket.detail',['ticket' => $ticket]);
     }
 
     public function storage()

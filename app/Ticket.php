@@ -22,9 +22,35 @@ class Ticket extends Model
             return $query->select('id','project','ticket_no','department_id','user_id','send_to','pickup_by','level','subject','created_at');
         }
 
+        public function scopeUserid($query,$userid)
+        {
+            return $query->where('user_id',$userid);
+        }
+
         public function scopeSorting($query)
         {
             return $query->orderBy('created_at','desc');
+        }
+
+        public function scopeFilterLevel($query, $level)
+        {
+            if($level != ''){
+                return $query->where('level', $level);
+            }
+        }
+
+        public function scopeFilterTicket($query, $ticket)
+        {
+            if ($ticket != '') {
+                return $query->where('ticket_no',$ticket);
+            }
+        }
+
+        public function scopeFilterDate($query, $date)
+        {
+            if ($date != '') {
+                return $query->where('created_at','LIKE','%'.$date.'%');
+            }
         }
 
         /**

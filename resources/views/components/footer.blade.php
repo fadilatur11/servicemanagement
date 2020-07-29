@@ -18,6 +18,7 @@
 </div>
 </div>
 <script type="text/javascript" src="{{asset('assets/scripts/main.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {

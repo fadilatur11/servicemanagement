@@ -24,8 +24,14 @@ Auth::routes();
  */
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-    Route::get('/ticket', 'TicketController@index')->name('listicket');
-    Route::get('/ticket/create', 'TicketController@create');
-    Route::post('ticket/actioncreate', 'TicketController@actioncreate');
+    /**
+     * Route ticket
+     */
+    Route::prefix('ticket')->group(function (){
+        Route::get('/', 'TicketController@index')->name('listicket');
+        Route::get('create', 'TicketController@create');
+        Route::get('detail/{ticket}','TicketController@detail');
+        Route::post('actioncreate', 'TicketController@actioncreate');
+    });
 });
 

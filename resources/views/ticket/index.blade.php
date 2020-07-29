@@ -34,11 +34,25 @@
                 <div class="main-card mb-3 card">
                     <div class="col-sm-12">
                         <span class="titlefont">Filter :</span>
-                        <div class="col-sm-2 filterkolom">
-                        <select class="form-control">
-                            <option>Level</option>
-                        </select>
-                        </div>
+                        <form class="filterkolom form-inline" action=" {{url('/ticket') }}" method="GET">
+                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                <input name="ticket" placeholder="Ticket No" type="text" class="form-control">
+                            </div>
+                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                <select class="form-control" name="filter" id="selectlevel">
+                                    <option value="">Level</option>
+                                    <option value="">All</option>
+                                    @foreach ($level as $getlevel)
+                                        <option value="{{ $getlevel['id'] }}">{{ $getlevel['name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                <input class="form-control" name="date" type="date" value="" placeholder="Date">
+                            </div>
+                                <button class="btn btn-primary" type="submit">Apply</button>
+                        </form>
                     </div>
                     <div class="card-body" style="overflow-x:auto;">
                         
@@ -52,7 +66,6 @@
                                     <th>Request</th>
                                     <th>Date</th>
                                     <th>From Department</th>
-                                    <th>To Department</th>
                                     <th>Level</th>
                                     <th>Pick-up By</th>
                                     <th>Option</th>
@@ -67,7 +80,6 @@
                                     <td>{{ $dataTicket->category->category }}</td>
                                     <td>{{ $dataTicket->user->name }}</td>
                                     <td>{{ date('Y-m-d', strtotime($dataTicket->created_at)) }}</td>
-                                    <td>{{ $dataTicket->fromDepartment->department }}</td>
                                     <td>{{ $dataTicket->toDepartment->department }}</td>
                                     <td>
                                         <button type="button" class="mb-2 mr-2 btn
@@ -80,7 +92,11 @@
                                             {{ $dataTicket->pickupBy ? $dataTicket->pickupBy->name : 'Pick-up' }}
                                         </button>
                                     </td>
-                                    <td><button type="button" class="mb-2 mr-2 btn btn-primary">Detail</td>
+                                    <td>
+                                    <a href="{{ url('ticket/detail/'.$dataTicket->ticket_no) }}" target="_blank">
+                                            <button type="button" class="mb-2 mr-2 btn btn-primary">Detail</button>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -93,3 +109,13 @@
         </div>
     </div>
     <x-footer/>
+   <script>
+        $(function() {
+            $("#selectlevel").change(function(){
+                let select = $(this).val();
+                if (select == '') {
+                    window.location = '{{ url('/ticket') }}'
+                }
+            })
+        })
+    </script>
