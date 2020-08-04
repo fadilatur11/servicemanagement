@@ -30,7 +30,6 @@ class DashboardController extends Controller
         $levelbar = Level::Active()->SelectName()->get()->toArray();
         $count = CountLevelService::countLevel($levelbar,0);
         $status = CountLevelService::countLevel($levelbar,2);
-        // dd($status);
         return view('dashboard.index',[
             'level' => $level,
             'levelbar' => $levelbar,

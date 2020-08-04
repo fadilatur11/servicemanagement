@@ -74,8 +74,9 @@ class TicketController extends Controller
         return view('ticket.detail',['ticket' => $ticket]);
     }
 
-    public function storage()
+    public function pickup(Request $req)
     {
-        return response(assets('storage/file.txt'));
+        Ticket::FilterTicket($req->input('ticket_no'))->update(['pickup_by' => Auth::user()->id]);
+        return redirect()->back()->with('messages', 'Ticket has been taken !');
     }
 }

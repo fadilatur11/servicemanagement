@@ -88,7 +88,7 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="mb-2 mr-2 btn {{ $dataTicket->pickupBy ? 'btn-secondary' : 'btn-alternate' }} widthbtn">
+                                    <button type="button" class="mb-2 mr-2 btn {{ $dataTicket->pickupBy ? 'btn-secondary' : 'btn-alternate' }} widthbtn" {{ $dataTicket->pickupBy ? 'disabled' : '' }} data-toggle="modal" data-target="#exampleModal{{$loop->iteration}}">
                                             {{ $dataTicket->pickupBy ? $dataTicket->pickupBy->name : 'Pick-up' }}
                                         </button>
                                     </td>
@@ -98,6 +98,31 @@
                                         </a>
                                     </td>
                                 </tr>
+                                
+                            <!-- Modal -->
+                            <form action="{{ url('/ticket/pickup') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                            <div class="modal fade" tabindex="-1" id="exampleModal{{$loop->iteration}}" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle"><b>{{ $dataTicket->ticket_no}}</b></h5>
+                                            <input type="hidden" name="ticket_no" value="{{ $dataTicket->ticket_no}}">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are sure pick-up this ticket ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
                             @endforeach
                             </tbody>
                         </table>
@@ -108,6 +133,7 @@
             </div>
         </div>
     </div>
+    
     @include('layouts.footer')
    <script>
         $(function() {

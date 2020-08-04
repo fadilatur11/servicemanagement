@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('create', 'TicketController@create');
         Route::get('detail/{ticket}','TicketController@detail');
         Route::post('actioncreate', 'TicketController@actioncreate');
+        Route::post('pickup','TicketController@pickup');
     });
 });
 
