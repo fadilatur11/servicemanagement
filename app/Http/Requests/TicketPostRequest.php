@@ -33,7 +33,7 @@ class TicketPostRequest extends FormRequest
             'level' => 'required',
             'url' => 'required',
             'description' => 'required',
-            'file' => 'required',
+            'file' => 'required|mimes:pdf,jpg,jpeg,png|max:5120',
         ];
     }
 }

@@ -32,6 +32,11 @@ class Ticket extends Model
             return $query->orderBy('created_at','desc');
         }
 
+        public function scopeTicketStatus($query, $status)
+        {
+            return $query->where('status', $status);
+        }
+
         public function scopeFilterLevel($query, $level)
         {
             if($level != ''){
@@ -50,6 +55,13 @@ class Ticket extends Model
         {
             if ($date != '') {
                 return $query->where('created_at','LIKE','%'.$date.'%');
+            }
+        }
+
+        public function scopeTicketPerMonth($query, $month)
+        {
+            if ($month != '') {
+                return $query->whereMonth('created_at', $month);
             }
         }
 

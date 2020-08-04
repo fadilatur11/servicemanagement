@@ -1,4 +1,4 @@
-<x-headerlogin/>
+@include('layouts.headerlogin')
 <body style="background-color: #666666;">
 	
 	<div class="limiter">
@@ -81,4 +81,4 @@
 			</div>
 		</div>
     </div>
-    <x-footerlogin/>
+    @include('layouts.footerlogin')

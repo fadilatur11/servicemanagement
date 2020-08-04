@@ -1,4 +1,4 @@
-<x-header/>
+@include('layouts.header')
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -125,4 +125,4 @@
             </div>
         </div>
     </div>
-<x-footer/>
+@include('layouts.footer')

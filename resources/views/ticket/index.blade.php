@@ -1,4 +1,4 @@
-<x-header/>
+@include('layouts.header')
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -84,7 +84,7 @@
                                     <td>
                                         <button type="button" class="mb-2 mr-2 btn
                                             @if ($dataTicket->level == 1) btn-danger @elseif ($dataTicket->level == 2) btn-warning
-                                            @elseif ($dataTicket->level == 3) btn-info @elseif ($dataTicket->level == 4) btn-light @endif widthbtn">{{ $dataTicket->relationLevel->name }}
+                                            @elseif ($dataTicket->level == 3) btn-success @elseif ($dataTicket->level == 4) btn-info @endif widthbtn">{{ $dataTicket->relationLevel->name }}
                                         </button>
                                     </td>
                                     <td>
@@ -108,7 +108,7 @@
             </div>
         </div>
     </div>
-    <x-footer/>
+    @include('layouts.footer')
    <script>
         $(function() {
             $("#selectlevel").change(function(){

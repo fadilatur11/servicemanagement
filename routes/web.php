@@ -23,7 +23,7 @@ Auth::routes();
  * Route Grouping must be authenticated
  */
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     /**
      * Route ticket
      */
