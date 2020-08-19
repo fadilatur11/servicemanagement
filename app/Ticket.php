@@ -64,6 +64,13 @@ class Ticket extends Model
                 return $query->whereMonth('created_at', $month);
             }
         }
+        
+        public function scopeFilterPickup($query, $pickup)
+        {
+            if ($pickup != '') {
+                return $query->where('pickup_by', $pickup);
+            }
+        }
 
         /**
          * relation ticket with table user and category

@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', 'TicketController@index')->name('listicket');
         Route::get('create', 'TicketController@create');
         Route::get('detail/{ticket}','TicketController@detail');
+        Route::get('pickup-by-me','TicketController@pickupByMe');
         Route::post('actioncreate', 'TicketController@actioncreate');
         Route::post('pickup','TicketController@pickup');
     });

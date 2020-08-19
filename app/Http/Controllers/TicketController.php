@@ -27,21 +27,35 @@ class TicketController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::user()->role == 1) {
-            $ticket = Ticket::Sorting()->FilterLevel($request->input('filter'))
+        $ticket = Ticket::Sorting()->FilterLevel($request->input('filter'))
                 ->FilterTicket($request->input('ticket'))
                 ->FilterDate($request->input('date'))
+                ->FilterPickup($request->input('pickupby'))
                 ->paginate(10);
-        }else{
-            $ticket = Ticket::Userid(Auth::user()->id)->FilterLevel($request->input('filter'))
-                ->FilterTicket($request->input('ticket'))
-                ->FilterDate($request->input('date'))
-                ->Sorting()->paginate(10);
-        }
+
         $level = Level::Active()->SelectName()->get()->toArray();
+        $pickupBy = User::SelectField()->Active()->Responsibility(1)->get()->toArray();
         return view('ticket.index',[
             'ticket' => $ticket,
-            'level' => $level
+            'level' => $level,
+            'pickupby' => $pickupBy
+            ]);
+    }
+
+    public function pickupByMe(Request $request)
+    {
+        $ticket = Ticket::Sorting()->FilterLevel($request->input('filter'))
+        ->FilterTicket($request->input('ticket'))
+        ->FilterDate($request->input('date'))
+        ->FilterPickup(Auth::user()->id)
+        ->paginate(10);
+        
+        $level = Level::Active()->SelectName()->get()->toArray();
+        $pickupBy = User::SelectField()->Active()->Responsibility(1)->get()->toArray();
+        return view('ticket.pickupbyme',[
+            'ticket' => $ticket,
+            'level' => $level,
+            'pickupby' => $pickupBy
             ]);
     }
 

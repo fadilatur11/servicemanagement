@@ -170,9 +170,9 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="elements-dropdowns.html">
+                                        <a href="{{ url('/ticket/pickup-by-me') }}">
                                             <i class="metismenu-icon">
-                                                </i>Dropdowns
+                                                </i>Pick-up By Me
                                         </a>
                                     </li>
                                     

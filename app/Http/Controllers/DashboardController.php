@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Ticket;
 use App\Level;
 use App\Services\CountLevelService;
+use App\Project;
+use App\StatusProject;
 
 class DashboardController extends Controller
 {
@@ -21,19 +23,31 @@ class DashboardController extends Controller
 
     /**
      * Show the application dashboard.
-     *
+     * $carcount with status 0 = get data ticket masing2 level dengan status sama dgn 0
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
         $level = Level::Active()->SelectName()->get()->toArray();
-        $levelbar = Level::Active()->SelectName()->get()->toArray();
-        $count = CountLevelService::countLevel($levelbar,0);
-        $status = CountLevelService::countLevel($levelbar,2);
+        $cardcount = CountLevelService::countLevel($level,0);
+        $finished = CountLevelService::countLevel($level,2);
+        $progress = CountLevelService::countLevel($level,1);
+        $closed = CountLevelService::countLevel($level,3);
+        $statusProject = StatusProject::SelectField()->get()->toArray();
+        $projectProgress = Project::GetStatus(1)->count();
+        $projectHold = Project::GetStatus(2)->count();
+        $projectRejected = Project::GetStatus(3)->count();
+        $projectClosed = Project::GetStatus(1)->count();
         return view('dashboard.index',[
             'level' => $level,
-            'levelbar' => $levelbar,
-            'countbar' => $count,
-            'status' => $status]);
+            'cardcount' => $cardcount,
+            'finished' => $finished,
+            'progress' => $progress,
+            'closed' => $closed,
+            'statusProject' => $statusProject,
+            'projectProgress' => $projectProgress,
+            'projectHold' => $projectHold,
+            'projectRejected' => $projectRejected,
+            'projectClosed' => $projectClosed]);
     }
 }

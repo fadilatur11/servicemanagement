@@ -8,7 +8,7 @@
                         <i class="pe-7s-drawer icon-gradient bg-happy-itmeo"></i>
                     </div>
                     <div>
-                        List Ticket
+                        Pick-up By Me 
                     </div>
                 </div>
 
@@ -34,17 +34,9 @@
                 <div class="main-card mb-3 card">
                     <div class="col-sm-12">
                         <span class="titlefont">Filter :</span>
-                        <form class="filterkolom form-inline" action=" {{url('/ticket') }}" method="GET">
+                        <form class="filterkolom form-inline" action=" {{url('/ticket/pickup-by-me') }}" method="GET">
                             <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
                                 <input name="ticket" placeholder="Ticket No" type="text" class="form-control">
-                            </div>
-                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
-                                <select class="form-control" name="pickupby">
-                                    <option value=""> Pickup By </option>
-                                @foreach ($pickupby as $getPickup)
-                                    <option value="{{ $getPickup['id'] }}"> {{ ucwords($getPickup['name']) }}</option>
-                                @endforeach
-                                </select>
                             </div>
                             <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
                                 <select class="form-control" name="filter" id="selectlevel">
